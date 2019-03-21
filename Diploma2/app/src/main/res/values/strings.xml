@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Diploma</string>
+
+    <string name="Open"></string>
+    <string name="Close"></string>
+    <string name="search"></string>
+
+</resources>
