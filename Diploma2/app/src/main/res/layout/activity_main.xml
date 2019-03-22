@@ -29,8 +29,7 @@
             android:queryHint = "Пошук"
             android:background="@drawable/back"
             android:layout_marginTop="10dp"
-            android:clickable="true"
-            android:click="onClick"
+            android:clickable="false"
             />
         <FrameLayout
             android:id="@+id/fragment_container"

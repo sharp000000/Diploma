@@ -16,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import android.support.v7.widget.SearchView;
+import android.view.inputmethod.InputMethodManager;
+
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout dl;
@@ -30,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         searchView = (SearchView)findViewById(R.id.search_view);
+
+
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.setIconified(false);
+            }
+        });
 
         dl = (DrawerLayout)findViewById(R.id.dl);
         abdt = new ActionBarDrawerToggle(this,dl,R.string.Open,R.string.Close);
