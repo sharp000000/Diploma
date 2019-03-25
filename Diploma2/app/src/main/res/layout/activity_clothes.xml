@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.diploma.Clothes"
+    android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"></include>
+
+    <TextView
+        android:id="@+id/clothestext"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="0dp"
+        android:text="@string/clothes_text"
+         />
+
+    <Button
+        android:id="@+id/textLaska"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="180dp"
+        android:background="@color/white"
+        android:onClick="linkToLaska"
+        android:text="Ласка" />
+
+    <Button
+        android:id="@+id/textRedCross"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:layout_toRightOf="@id/textLaska"
+        android:layout_marginTop="180dp"
+        android:background="@color/white"
+        android:onClick="linkToRedCross"
+        android:layout_marginLeft="30dp"
+        android:text="Червоний Хрест" />
+</RelativeLayout>

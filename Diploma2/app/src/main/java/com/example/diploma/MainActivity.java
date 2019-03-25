@@ -11,11 +11,21 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import android.support.v7.widget.SearchView;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
+import android.widget.Button;
+import android.view.View;
+import android.content.Intent;
+
+import org.w3c.dom.Text;
+
+
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout dl;
@@ -25,11 +35,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button button = (Button)findViewById(R.id.clothes);
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                openClothesActivity();
+            }
 
+        });
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         searchView = (SearchView)findViewById(R.id.search_view);
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.setIconified(false);
+            }
+        });
 
         dl = (DrawerLayout)findViewById(R.id.dl);
         abdt = new ActionBarDrawerToggle(this,dl,R.string.Open,R.string.Close);
@@ -39,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         abdt.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         NavigationView nav_view = (NavigationView)findViewById(R.id.nav);
+        View headerView = nav_view.getHeaderView(0);
+        TextView navtext = (TextView) headerView.findViewById(R.id.navtext);
+        navtext.setText("Збережи мене");
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -65,15 +90,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+    public void openClothesActivity(){
+        Intent intent = new Intent(this,Clothes.class);
+        startActivity(intent);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        //MenuItem item = menu.findItem(R.id.search_view);
-        //searchView = (SearchView) MenuItemCompat.getActionView(item);
-        //searchView.setQueryHint(getString(R.string.search));
-        //searchView.setIconifiedByDefault(true);
         return true;
     }
 
