@@ -17,6 +17,11 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import android.support.v7.widget.SearchView;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
+import android.widget.Button;
+import android.view.View;
+import android.content.Intent;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +32,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button button = (Button)findViewById(R.id.clothes);
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                openClothesActivity();
+            }
 
+        });
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -49,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         abdt.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         NavigationView nav_view = (NavigationView)findViewById(R.id.nav);
+        View headerView = nav_view.getHeaderView(0);
+        TextView navtext = (TextView) headerView.findViewById(R.id.navtext);
+        navtext.setText("Збережи мене");
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -75,7 +90,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+    public void openClothesActivity(){
+        Intent intent = new Intent(this,Clothes.class);
+        startActivity(intent);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
