@@ -1,12 +1,16 @@
 <resources>
     <string name="app_name">Diploma</string>
-
+    <string name="clothes">Одяг та взуття</string>
     <string name="Open"></string>
     <string name="Close"></string>
     <string name="search"></string>
+    <string name="chat">Chat bot</string>
     <string name="clothes_text">
             Одяг та взуття повинні бути чистими та в гарному стані, адже вони здаються на благодійність. \nПриймається за адресою вул. Саперно-Слобідська, 25/4. \nВи також можете здати в магазин Ласка або у товариство Червоного Хреста.
     </string>
     <string name="redcross_link">Червоний Хрест</string>
     <string name="laska_link">Магазин "Ласка"</string>
+    <string name="title_activity_main_bot">MainActivityBot</string>
+    <string name="non_empty_query">Query should not be empty</string>
+
 </resources>
