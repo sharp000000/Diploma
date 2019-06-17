@@ -35,14 +35,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-    <android.support.v7.widget.SearchView
+   <!-- <android.support.v7.widget.SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:queryHint = "Пошук"
         android:background="@drawable/back"
         android:clickable="false"
-        />
+        />-->
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/atv"
+                android:hint="Пошук"/>
+            <requestFocus />
 
             <Button
                 android:id="@+id/plastic"
@@ -98,6 +104,7 @@
         android:layout_gravity="right"
         android:layout_marginTop="-130dp"
         android:layout_marginRight="30dp"
+        android:onClick="openClothes"
         android:background="@color/white"
         android:text="Одяг та взуття"/>
     <Button
@@ -154,6 +161,7 @@
             app:menu_fab_label=""
             app:menu_openDirection="up"
             app:menu_showShadow="true">
+
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fabphoto"
                 android:layout_width="wrap_content"

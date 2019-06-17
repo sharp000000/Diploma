@@ -11,15 +11,10 @@ public class AllCategories {
             return name;
         }
         public String getInfo(){ return info; }
-        public String getImg() {return img; }
         public void setName(String name){
             this.name = name;
         }
         public void setInfo(String info){
             this.info = info;
-        }
-        public void setImg (String img){this.img = img; }
-        public String toString(){
-            return  "Category: " + name + " - " + info;
         }
 }

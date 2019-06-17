@@ -221,6 +221,7 @@ public class MainActivityBot extends AppCompatActivity implements View.OnClickLi
         chatView.setMessageMarginTop(1);
         chatView.setMessageMarginBottom(1);
         chatView.setOnClickSendButtonListener(this);
+        chatView.setMessageMaxWidth(500);
     }
 
     private void initService(final LanguageConfig languageConfig) {

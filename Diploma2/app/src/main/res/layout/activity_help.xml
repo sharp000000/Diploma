@@ -25,6 +25,41 @@
 
         </android.support.v7.widget.Toolbar>
     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="?attr/actionBarSize">
+        <TextView
+            android:id="@+id/helptext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="0dp"
+            android:text="@string/help_text"
+            />
+        <Button
+            android:id="@+id/image"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="left"
+            android:background="@color/white"
+            android:text="Допомогти з розпізнаванням зображення" />
+
+        <Button
+            android:id="@+id/question"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="40dp"
+            android:background="@color/white"
+            android:layout_marginTop="-130dp"
+            android:text="Допомогти з розпізнаванням питання" />
+    </LinearLayout>
+
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

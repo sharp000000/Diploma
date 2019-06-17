@@ -1,30 +1,44 @@
 package com.example.diploma;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
 import android.view.View;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.github.clans.fab.FloatingActionButton;
-import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.SearchView;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ScrollView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Categories extends MainActivity {
+public class Categories extends MainActivity implements AdapterView.OnItemClickListener{
+
+    private static final String TAG = "1";
     public DrawerLayout dl;
     public ActionBarDrawerToggle abdt;
-    SearchView searchView;
+    AutoCompleteTextView atv;
+    ArrayList<String> trash = new ArrayList<String> ();
+    ArrayList<String> allWaste = new ArrayList<String>();
+    HashMap<String, ArrayList<String>> dictionary = new HashMap<String, ArrayList<String>>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
-        super.toolBar();
         super.openMenu();
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollview);
         final FloatingActionsMenu fAM = (FloatingActionsMenu) findViewById(R.id.fab);
@@ -108,9 +122,41 @@ public class Categories extends MainActivity {
                 openCategories(nottaken.getText().toString());
             }
         });
+        atv = findViewById(R.id.atv);
+        if(atv.hasFocus()){
+            hideSoftKeyboard();
+        }
+        dictionary.put("пластик", new ArrayList<String>(Arrays.asList("pet","hdpe", "ldpe", "pp", "ps", "pvc", "пластикова пляшка", "кульок", "пакет", "кришечка" )));
+        dictionary.put("папір", new ArrayList<String>(Arrays.asList("картон", "гофрований картон", "пап’є маше", "папір", "зошит", " папір А4" )));
+        allWaste.addAll(dictionary.get("пластик"));
+        allWaste.addAll(dictionary.get("папір"));
+        atv.setAdapter(new ArrayAdapter<String>(Categories.this,android.R.layout.simple_list_item_1,  allWaste));
+        atv.setOnItemClickListener(this);
+
+        if(atv.hasFocus()){
+            hideSoftKeyboard();
+        }
 
     }
 
+    private void hideSoftKeyboard() {
+        if(getCurrentFocus()!=null && getCurrentFocus() instanceof EditText)
+        {
+            InputMethodManager imm =(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
+        }
+
+    }
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    {
+        String item = parent.getItemAtPosition(position).toString();
+        for (Map.Entry<String, ArrayList<String>> entry : dictionary.entrySet()) {
+            if (entry.getValue().equals(item)) {
+                Toast.makeText(Categories.this, "Selected Item is: \t" + item, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
     public void openCamera(){
         Intent intent = new Intent(this,CameraActivity.class);
         startActivity(intent);
@@ -141,12 +187,7 @@ public class Categories extends MainActivity {
     }
     @Override
     public void onBackPressed() {
-
-        if (dl.isDrawerOpen(GravityCompat.START)){
-            dl.closeDrawer(GravityCompat.START);
-        } else {
             super.onBackPressed();
-        }
     }
 
 }

@@ -1,13 +1,31 @@
 <resources>
-    <string name="app_name">Diploma</string>
+    <string name="app_name">Збережи мене</string>
     <string name="clothes">Одяг та взуття</string>
     <string name="Open"></string>
     <string name="Close"></string>
     <string name="search"></string>
-    <string name="chat">Chat bot</string>
-    <string name="clothes_text">
+    <string name="chat">Бот-сортувальник</string>
+    <string name="clothes_text">\n
             Одяг та взуття повинні бути чистими та в гарному стані, адже вони здаються на благодійність. \nПриймається за адресою вул. Саперно-Слобідська, 25/4. \nВи також можете здати в магазин Ласка або у товариство Червоного Хреста.
     </string>
+    <string name="recognition_text">\n
+            Пластик: 89.63%\n
+            Скло: 8.47%\n
+            Інше: 1.58%\n
+            Метал: 0.29%\n
+            Папір: 0.03%\n
+                </string>
+    <string name="second_text">\n
+            Метал: 91.73%\n
+            Скло: 4.12%\n
+            Пластик: 3.27%\n
+            Інше: 0.79%\n
+            Папір: 0.09%\n
+                </string>
+    <string name="error">\n
+            На жаль, сервер не відповідає
+                </string>
+    <string name="help_text">Допомога та підтримка - це важливо. Дякую, що ти з нами! Тисни на одну з кнопок, щоб допомогти проекту</string>
     <string name="redcross_link">Червоний Хрест</string>
     <string name="laska_link">Магазин "Ласка"</string>
     <string name="title_activity_main_bot">MainActivityBot</string>

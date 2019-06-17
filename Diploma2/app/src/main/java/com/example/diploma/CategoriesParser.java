@@ -1,7 +1,6 @@
 package com.example.diploma;
 import org.xmlpull.v1.XmlPullParser;
 import java.util.ArrayList;
-import android.net.Uri;
 public class CategoriesParser {
     private ArrayList<AllCategories> categories;
 
@@ -44,8 +43,6 @@ public class CategoriesParser {
                                 currentCategory.setName(textValue);
                             } else if("info".equalsIgnoreCase(tagName)){
                                 currentCategory.setInfo(textValue);
-                            } else if("image".equalsIgnoreCase(tagName)) {
-                                currentCategory.setImg(imgValue);
                             }
                         }
                         break;

@@ -14,22 +14,29 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.net.Uri;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class CameraActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE = 1;
+    private static final String TAG = "myLogs";
     Button mBtn;
     Button mGalleryBtn;
     ImageView mImageView;
     Uri image_uri;
-    private static final int PERMISSION_CODE=1000;
+    private static final int PERMISSION_CODE = 1000;
+    TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,37 +45,37 @@ public class CameraActivity extends AppCompatActivity {
         mImageView = findViewById(R.id.image_view);
         mBtn = findViewById(R.id.capture_image_btn);
         mGalleryBtn = findViewById(R.id.gallery_image_btn);
-            mBtn.setOnClickListener(new View.OnClickListener(){
+        mBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.M){
-                    if(checkSelfPermission(Manifest.permission.CAMERA) ==
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.CAMERA) ==
                             PackageManager.PERMISSION_DENIED ||
                             checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                            PackageManager.PERMISSION_DENIED) {
+                                    PackageManager.PERMISSION_DENIED) {
                         String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
                         requestPermissions(permission, PERMISSION_CODE);
-                    }
-                    else {
+                    } else {
                         openCamera();
+
                     }
-                }
-                else {
+                } else {
                     openCamera();
+
                 }
             }
         });
-            mGalleryBtn.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v){
-                    openGallery();
-                }
-            });
+        mGalleryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+
+            }
+        });
 
     }
-    private void openCamera()
-    {
+
+    private void openCamera() {
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "New picture");
         values.put(MediaStore.Images.Media.DESCRIPTION, "From the camera");
@@ -76,23 +83,23 @@ public class CameraActivity extends AppCompatActivity {
 
         Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(camera, 0);
+
     }
-    private void openGallery()
-    {
+
+    private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE);
+
     }
-    public void onRequestPermissionsResult(int requestCode, @NonNull String [] permissions, @NonNull int [] grantResults)
-    {
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case PERMISSION_CODE: {
                 if (grantResults.length > 0 && grantResults[0] ==
-                    PackageManager.PERMISSION_GRANTED) {
+                        PackageManager.PERMISSION_GRANTED) {
                     openCamera();
-                }
-                else {
+                } else {
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
-
                 }
             }
         }
@@ -101,16 +108,44 @@ public class CameraActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==PICK_IMAGE)
-        {
-            image_uri = data.getData();
-            mImageView.setImageURI(image_uri);
+        try {
+            if (requestCode == PICK_IMAGE) {
+                image_uri = data.getData();
+                mImageView.setImageURI(image_uri);
+                textView = (TextView)findViewById(R.id.text);
+                textView.setText(R.string.error);
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image_uri);
+                    Log.d(TAG, "base64" + getStringImage(bitmap));
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                mImageView.setImageBitmap(bitmap);
+                textView = (TextView)findViewById(R.id.text);
+                textView.setText(R.string.error);
+                Log.d(TAG, "base64" + getStringImage(bitmap));
+            }
         }
-        else {
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            mImageView.setImageBitmap(bitmap);
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
 
+    }
+
+    public String getStringImage(Bitmap bmp) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 90, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
+
+    private void showToastMessage(String message) {
+        Log.v(TAG, String.format("showToastMessage :: message = %s", message));
     }
     public Bitmap createScaledBitmap(String pathName, int width, int height) {
         final BitmapFactory.Options opt = new BitmapFactory.Options();
@@ -140,5 +175,9 @@ public class CameraActivity extends AppCompatActivity {
         String picturePath = cursor.getString(columnIndex);
         cursor.close();
         return picturePath;
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

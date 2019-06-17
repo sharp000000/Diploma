@@ -1,7 +1,6 @@
 package com.example.diploma;
 
 import android.graphics.Typeface;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -9,13 +8,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.net.Uri;
 import org.xmlpull.v1.XmlPullParser;
-
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import java.net.URI;
 
 public class CategoryResponseActivity extends MainActivity {
     public DrawerLayout dl;
@@ -28,6 +23,8 @@ public class CategoryResponseActivity extends MainActivity {
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_response);
         final Toolbar toolbar = findViewById(R.id.toolbar);
@@ -41,9 +38,10 @@ public class CategoryResponseActivity extends MainActivity {
         XmlPullParser xpp = getResources().getXml(R.xml.categoriesinfo);
         CategoriesParser parser = new CategoriesParser();
         TextView textView = (TextView) findViewById(R.id.categorytext);
-        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/aller.ttf");
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/regular.otf");
         textView.setTypeface(type);
         textView.setTextSize(17);
+        textView.setTextColor(getResources().getColor(R.color.black));
         super.openMenu();
         ImageView img = (ImageView) findViewById(R.id.imageview);
         Bundle arguments = getIntent().getExtras();
@@ -75,6 +73,9 @@ public class CategoryResponseActivity extends MainActivity {
                             break;
                         case "На спалювання" :
                             img.setImageResource(R.drawable.burn);
+                            break;
+                        case "Графік роботи" :
+                            img.setImageResource(R.drawable.schedule);
                             break;
                     }
                 }

@@ -9,20 +9,32 @@
     tools:context=".CameraActivity">
 
     <ImageView
-        android:layout_width="400dp"
+        android:layout_width="match_parent"
         android:layout_height="400dp"
         android:id="@+id/image_view"
-        android:src="@drawable/schedule"
+        android:src="@drawable/saveme"
         android:scaleType="centerCrop"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="0dp"
+        android:layout_below="@+id/image_view"
+        android:id="@+id/text"
+        />
     <Button
         android:id="@+id/capture_image_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Take a Photo" />
+        android:text="Зробити фото"
+        android:layout_below="@+id/text"/>
+
     <Button
         android:id="@+id/gallery_image_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Upload a Photo" />
+        android:layout_gravity="bottom"
+        android:text="Завантажити фото"
+        android:layout_below="@+id/capture_image_btn"/>
 
 </LinearLayout>

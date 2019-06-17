@@ -1,6 +1,7 @@
 package com.example.diploma;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     }
     public void toolBar()
     {
+        final DrawerLayout dl;
+        final ActionBarDrawerToggle abdt;
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         dl = (DrawerLayout)findViewById(R.id.dl);
@@ -43,7 +46,17 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openMenu()
     {
-        NavigationView nav_view = (NavigationView)findViewById(R.id.nav);
+        final DrawerLayout dl;
+        final ActionBarDrawerToggle abdt;
+        final Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        dl = (DrawerLayout)findViewById(R.id.dl);
+        abdt = new ActionBarDrawerToggle(this,dl,R.string.Open,R.string.Close);
+        abdt.setDrawerIndicatorEnabled(true);
+        dl.addDrawerListener(abdt);
+        abdt.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        final NavigationView nav_view = (NavigationView)findViewById(R.id.nav);
         View headerView = nav_view.getHeaderView(0);
         TextView navtext = (TextView) headerView.findViewById(R.id.navtext);
         navtext.setText("Збережи мене");
@@ -56,18 +69,22 @@ public class MainActivity extends AppCompatActivity {
                 if(id==R.id.main)
                 {
                     openMain();
+                    dl.closeDrawers();
                 }
                 else if (id==R.id.schedule)
                 {
                     OpenShedule();
+                    dl.closeDrawers();
                 }
                 else if (id == R.id.help)
                 {
                     OpenHelp();
+                    dl.closeDrawers();
                 }
                 else if(id ==R.id.faq)
                 {
                     OpenFAQ();
+                    dl.closeDrawers();
                 }
 
                 return true;
@@ -86,8 +103,10 @@ public class MainActivity extends AppCompatActivity {
     }
     public void OpenShedule()
     {
-        Intent intent = new Intent(this, Shedule.class);
+        Intent intent = new Intent(this, CategoryResponseActivity.class);
+        intent.putExtra("1", "Графік роботи");
         startActivity(intent);
+
     }
     public void OpenFAQ()
     {

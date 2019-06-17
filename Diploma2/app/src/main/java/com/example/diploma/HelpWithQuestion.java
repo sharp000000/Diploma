@@ -1,7 +1,7 @@
 package com.example.diploma;
 
-import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,14 +11,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class FAQ extends MainActivity {
+public class HelpWithQuestion extends MainActivity {
     public DrawerLayout dl;
     public ActionBarDrawerToggle abdt;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_faq);
+        setContentView(R.layout.activity_help_with_question);
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         dl = (DrawerLayout)findViewById(R.id.dl);
@@ -27,19 +30,29 @@ public class FAQ extends MainActivity {
         dl.addDrawerListener(abdt);
         abdt.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Часті питання");
+        getSupportActionBar().setTitle("Допомога з питанням");
         super.openMenu();
-        final Button faq = (Button) findViewById(R.id.faq);
-        faq.setOnClickListener(new View.OnClickListener(){
+        final TextView textView = (TextView) findViewById(R.id.text);
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/regular.otf");
+        textView.setTypeface(type);
+        textView.setTextSize(21);
+        textView.setTextColor(getResources().getColor(R.color.black));
+        final RadioGroup gr = (RadioGroup)findViewById(R.id.radios);
+        Button btn = (Button) findViewById(R.id.approve);
+        btn.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v){
-                linkToFAQ(v);
+            public void onClick(View v) {
+                Toast.makeText(HelpWithQuestion.this, "Дякуємо за допомогу!", Toast.LENGTH_SHORT).show();
+                textView.setText(R.string.error);
+                gr.clearCheck();
             }
         });
+        int textColor = Color.parseColor("#FFFFFF");
+        btn.setTextColor(textColor);
     }
-    public void linkToFAQ(View view){
-        Intent laskaIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegra.ph/CHast%D1%96-pitannya-02-08"));
-        startActivity(laskaIntent);
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,9 +64,5 @@ public class FAQ extends MainActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         return abdt.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
-    }
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
     }
 }

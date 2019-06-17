@@ -22,13 +22,13 @@ public class Clothes extends MainActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clothes);
-        super.toolBar();
-        getSupportActionBar().setTitle("Одяг та взуття");
         TextView textView = (TextView) findViewById(R.id.clothestext);
-        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/aller.ttf");
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/regular.otf");
         textView.setTypeface(type);
         textView.setTextSize(17);
+        textView.setTextColor(getResources().getColor(R.color.black));
         super.openMenu();
+        getSupportActionBar().setTitle("Одяг та взуття");
         final Button btnLaska = (Button) findViewById(R.id.textLaska);
         btnLaska.setOnClickListener(new View.OnClickListener() {
             @Override
